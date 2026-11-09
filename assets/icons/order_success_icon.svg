@@ -1,0 +1,35 @@
+
+<svg width="220" height="184" viewBox="0 0 220 184" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+    <!-- Outer Circle -->
+    <circle cx="111" cy="92" r="92" fill="#E8F8F0"/>
+
+    <!-- Middle Circle -->
+    <circle cx="111" cy="92" r="70" fill="#D4F3E3"/>
+
+    <!-- Inner Circle -->
+    <circle cx="111" cy="92" r="48" fill="#21A675"/>
+
+    <!-- Check Icon -->
+    <path
+        d="M81 92L103 113L139 73"
+        stroke="white"
+        stroke-width="7"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+
+    <!-- Decorative Dots -->
+    <circle cx="19" cy="55" r="7" fill="#B5E6CE"/>
+    <circle cx="213" cy="57" r="10" fill="#B5E6CE"/>
+    <circle cx="201" cy="146" r="5.5" fill="#B5E6CE"/>
+
+    <!-- Decorative Cross -->
+    <path
+        d="M26 128L32 134M32 128L26 134"
+        stroke="#21A675"
+        stroke-width="2.5"
+        stroke-linecap="round"
+    />
+
+</svg>
