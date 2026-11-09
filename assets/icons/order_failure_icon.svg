@@ -1,0 +1,40 @@
+<svg
+    width="184"
+    height="184"
+    viewBox="0 0 184 184"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <!-- Outer Circle -->
+    <circle
+        cx="92"
+        cy="92"
+        r="92"
+        fill="#FDEDEF"
+    />
+
+    <!-- Middle Circle -->
+    <circle
+        cx="92"
+        cy="92"
+        r="70"
+        fill="#FADDE1"
+    />
+
+    <!-- Inner Circle -->
+    <circle
+        cx="92"
+        cy="92"
+        r="48"
+        fill="#E25C69"
+    />
+
+    <!-- Cross Icon -->
+    <path
+        d="M77 77L107 107M107 77L77 107"
+        stroke="white"
+        stroke-width="6"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+    />
+</svg>
