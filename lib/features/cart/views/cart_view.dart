@@ -43,45 +43,59 @@ class CartView extends StatelessWidget {
                     )
                   : null,
             ),
-            body: Padding(
-              padding: isShowBackIcon
-                  ? const EdgeInsets.symmetric(horizontal: 20)
-                  : EdgeInsetsGeometry.zero,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("3 items in your bag", style: AppTextStyles.bodySmall),
-                  SizedBox(height: 17),
-                  Expanded(child: ListCartBuilder(cartList: state.cartList)),
-                  SizedBox(height: 64),
-                  AppTextFormField(
-                    hintText: "Promo code",
-                    suffix: TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "Apply",
-                        style: AppTextStyles.labelLarge.copyWith(
-                          color: AppColors.actionPrimaryLight,
+            body: state.cartList.isEmpty
+                ? EmptyStateWidget(
+                    icon: Icons.shopping_cart_outlined,
+                    title: 'Your cart is empty',
+                    description:
+                        'You haven’t added any products to your cart yet.',
+                  )
+                : Padding(
+                    padding: isShowBackIcon
+                        ? const EdgeInsets.symmetric(horizontal: 20)
+                        : EdgeInsetsGeometry.zero,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "3 items in your bag",
+                          style: AppTextStyles.bodySmall,
                         ),
-                      ),
+                        SizedBox(height: 17),
+                        Expanded(
+                          child: ListCartBuilder(cartList: state.cartList),
+                        ),
+                        SizedBox(height: 64),
+                        AppTextFormField(
+                          hintText: "Promo code",
+                          suffix: TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "Apply",
+                              style: AppTextStyles.labelLarge.copyWith(
+                                color: AppColors.actionPrimaryLight,
+                              ),
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 14),
+                        OrderSummarySection(cartList: state.cartList),
+                        SizedBox(height: 47),
+                        PrimaryButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CheckoutView(),
+                              ),
+                            );
+                          },
+                          text: "Proceed to Checkout ",
+                        ),
+                        SizedBox(height: 45),
+                      ],
                     ),
                   ),
-                  SizedBox(height: 14),
-                  OrderSummarySection(cartList: state.cartList),
-                  SizedBox(height: 47),
-                  PrimaryButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => CheckoutView()),
-                      );
-                    },
-                    text: "Proceed to Checkout ",
-                  ),
-                  SizedBox(height: 45),
-                ],
-              ),
-            ),
           );
         }
         return EmptyStateWidget(
