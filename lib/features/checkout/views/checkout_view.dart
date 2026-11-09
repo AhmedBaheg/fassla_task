@@ -44,7 +44,7 @@ class CheckoutView extends StatelessWidget {
             SizedBox(height: 11),
             CheckoutOptionTile(checkout: "Cash on Delivery", isSelected: false),
             SizedBox(height: 24),
-            OrderSummarySection(),
+            OrderSummarySection(cartList: [],),
             SizedBox(height: 24),
             PrimaryButton(
               onPressed: () {

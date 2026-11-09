@@ -1,89 +1,129 @@
+
+import 'package:fassla_task/features/cart/models/cart_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/utils/app_strings.dart';
+import '../cubits/cart_cubit.dart';
 
-class CartItemCard extends StatefulWidget {
-  const CartItemCard({super.key});
+class CartItemCard extends StatelessWidget {
+  const CartItemCard({
+    super.key,
+    required this.cartModel,
+  });
 
-  @override
-  State<CartItemCard> createState() => _CartItemCardState();
-}
-
-class _CartItemCardState extends State<CartItemCard> {
-  int counter = 1;
+  final CartModel cartModel;
 
   @override
   Widget build(BuildContext context) {
+    final product = cartModel.productModel!;
+
     return Card(
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
-        side: BorderSide(color: AppColors.borders, width: 1),
+        side: BorderSide(
+          color: AppColors.borders,
+          width: 1,
+        ),
       ),
       color: AppColors.white,
       elevation: 0,
       clipBehavior: Clip.antiAlias,
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(AppStrings.productImage, width: 100, height: 100),
-            SizedBox(height: 15),
+            Image.asset(
+              product.image,
+              width: 100,
+              height: 100,
+              fit: BoxFit.contain,
+            ),
+
+            const SizedBox(width: 15),
+
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Wireless Headphones",
+                    product.title,
                     style: AppTextStyles.productName,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  SizedBox(height: 4),
-                  Text("\$120", style: AppTextStyles.highlightedPrice),
+
+                  const SizedBox(height: 4),
+
+                  Text(
+                    "\$${(cartModel.productModel!.price * cartModel.quantity!).toStringAsFixed(2)}",
+                    style: AppTextStyles.highlightedPrice,
+                  ),
+
+                  const SizedBox(height: 8),
+
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       IconButton(
                         onPressed: () {
-                          if (counter > 1) {
-                            setState(() {
-                              counter--;
-                            });
+                          if (cartModel.quantity! > 1) {
+                            context.read<CartCubit>().decreaseQuantity(
+                              product,
+                            );
                           }
                         },
-                        icon: SvgPicture.asset(AppStrings.decrementIcon),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        icon: SvgPicture.asset(
+                          AppStrings.decrementIcon,
+                        ),
                       ),
-                      SizedBox(width: 10),
+
+                      const SizedBox(width: 12),
+
                       Text(
-                        counter.toString(),
+                        cartModel.quantity.toString(),
                         style: AppTextStyles.bodySmall.copyWith(
                           color: AppColors.darkText,
                         ),
                       ),
-                      SizedBox(width: 10),
+
+                      const SizedBox(width: 12),
+
                       IconButton(
                         onPressed: () {
-                          setState(() {
-                            counter++;
-                          });
+                          context.read<CartCubit>().increaseQuantity(
+                            product,
+                          );
                         },
-                        icon: SvgPicture.asset(AppStrings.incrementIcon),
+                        padding: EdgeInsets.zero,
+                        constraints: const BoxConstraints(),
+                        icon: SvgPicture.asset(
+                          AppStrings.incrementIcon,
+                        ),
                       ),
                     ],
                   ),
                 ],
               ),
             ),
-            SizedBox(width: 10),
+
+            const SizedBox(width: 8),
+
             IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(AppStrings.deleteIcon),
+              onPressed: () {
+                context.read<CartCubit>().removeItem(product);
+              },
+              padding: EdgeInsets.zero,
+              constraints: const BoxConstraints(),
+              icon: SvgPicture.asset(
+                AppStrings.deleteIcon,
+              ),
             ),
           ],
         ),
